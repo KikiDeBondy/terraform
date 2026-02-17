@@ -16,8 +16,8 @@ resource "aws_instance" "this" {
 resource "aws_ebs_volume" "data" {
   # count va valoir var.volume_count (ex: 2). 
   # Terraform va créer data[0] et data[1]
-  count             = var.volume_count
-  
+  count = var.volume_count
+
   availability_zone = var.az
   size              = var.volume_size
   type              = "gp3"
@@ -32,11 +32,11 @@ resource "aws_ebs_volume" "data" {
 # Attachement des disques à l'instance
 resource "aws_volume_attachment" "data_attach" {
   count = var.volume_count
-  
+
   # element() prend un tableau et choisit l'élément à l'index donné.
   # data[0] ira sur /dev/sdf, data[1] sur /dev/sdg, etc.
   device_name = element(["/dev/sdf", "/dev/sdg", "/dev/sdh", "/dev/sdi"], count.index)
-  
+
   volume_id   = aws_ebs_volume.data[count.index].id
   instance_id = aws_instance.this.id
 }

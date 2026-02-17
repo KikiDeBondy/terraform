@@ -9,18 +9,22 @@ output "availability_zones_used" {
   }
 }
 
+# On demande le vpc_id au module network
 output "vpc_id" {
-  value = aws_vpc.main.id
+  value = module.network.vpc_id
 }
 
+# On demande l'IP publique au module serveur_web_a
 output "instance_a_public_ip" {
-  value = aws_instance.instance_a.public_ip
+  value = module.serveur_web_a.public_ip
 }
 
+# On demande l'IP publique au module serveur_web_b
 output "instance_b_public_ip" {
-  value = aws_instance.instance_b.public_ip
+  value = module.serveur_web_b.public_ip
 }
 
+# On demande le nom du bucket au module S3
 output "s3_docs_bucket_name" {
-  value = aws_s3_bucket.docs.bucket
+  value = module.stockage_documents.bucket_name
 }

@@ -2,14 +2,14 @@
 module "network" {
   source = "./modules/network"
 
-  vpc_name         = var.vpc_name
-  vpc_cidr         = var.vpc_cidr
-  
+  vpc_name = var.vpc_name
+  vpc_cidr = var.vpc_cidr
+
   # On lui passe la nouvelle variable pour le SSH :
-  allowed_ssh_cidr = var.allowed_ssh_cidr 
-  
-  common_tags      = local.common_tags
-  
+  allowed_ssh_cidr = var.allowed_ssh_cidr
+
+  common_tags = local.common_tags
+
   subnets = {
     "a" = { cidr = var.subnet_a_cidr, az = local.az_a }
     "b" = { cidr = var.subnet_b_cidr, az = local.az_b }
@@ -24,12 +24,12 @@ module "serveur_web_a" {
   ami_id        = data.aws_ami.al2023.id
   instance_type = var.instance_type
   az            = local.az_a
-  volume_count  = var.volume_count  
+  volume_count  = var.volume_count
 
-  subnet_id     = module.network.subnet_ids["a"]   
-  sg_ids        = [module.network.instance_sg_id] 
-  
-  common_tags   = local.common_tags
+  subnet_id = module.network.subnet_ids["a"]
+  sg_ids    = [module.network.instance_sg_id]
+
+  common_tags = local.common_tags
 }
 
 # L'appel au module INSTANCE (Serveur B)
@@ -40,12 +40,12 @@ module "serveur_web_b" {
   ami_id        = data.aws_ami.al2023.id
   instance_type = var.instance_type
   az            = local.az_b
-  volume_count  = var.volume_count  
+  volume_count  = var.volume_count
 
-  subnet_id     = module.network.subnet_ids["b"]
-  sg_ids        = [module.network.instance_sg.id]
-  
-  common_tags   = local.common_tags
+  subnet_id = module.network.subnet_ids["b"]
+  sg_ids    = [module.network.instance_sg_id]
+
+  common_tags = local.common_tags
 }
 
 # L'appel au module S3
