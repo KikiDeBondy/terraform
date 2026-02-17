@@ -1,0 +1,20 @@
+site_name: Atelier Terraform AWS
+site_description: Documentation du projet Terraform (AWS Paris)
+site_author: John Doe
+repo_name: terraform-atelier01
+theme:
+  name: material
+  features:
+    - navigation.tabs
+    - navigation.top
+    - content.code.copy
+markdown_extensions:
+  - admonition
+  - toc:
+      permalink: true
+nav:
+  - Accueil: index.md
+  - Infrastructure: terraform.md
+  - CI:
+      - Terraform (lint & sec): ci/terraform-ci.md
+      - MkDocs (Pages): ci/mkdocs-pages.md
